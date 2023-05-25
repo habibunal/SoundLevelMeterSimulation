@@ -10,35 +10,35 @@ static void MX_ADC1_Init(void);
 
 int main(void)
 {
-	HAL_Init();
-	SystemClock_Config();
-	MX_GPIO_Init();
-	MX_ADC1_Init();
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_ADC1_Init();
 
-	lcd_init();
+    lcd_init();
 
-	uint16_t adc = 0;
-	int db = 0;
-	char dB[10];
+    uint16_t adc = 0;
+    int db = 0;
+    char dB[10];
 
     while (1)
     {
-    	HAL_ADC_Start(&hadc1);
-    	adc = HAL_ADC_GetValue(&hadc1);
+        HAL_ADC_Start(&hadc1);
+        adc = HAL_ADC_GetValue(&hadc1);
     	db = (adc + 83.2073) / 11.003;
     	if(db < 10)
     	{
-    		sprintf(dB, "dB: 00%d", db);
+    	    sprintf(dB, "dB: 00%d", db);
     	}
     	else if(db < 100)
     	{
-    		sprintf(dB, "dB: 0%d", db);
+    	    sprintf(dB, "dB: 0%d", db);
     	}
     	else
     	{
-    		sprintf(dB, "dB: %d", db);
+    	    sprintf(dB, "dB: %d", db);
     	}
-		lcd_puts(0, 0, (int8_t*) dB);
+	lcd_puts(0, 0, (int8_t*) dB);
     }
 }
 
